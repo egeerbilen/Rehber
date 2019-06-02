@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.js"></script>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+					<meta name="viewport" content="width=device-width, initial-scale=1">
+					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+					
+    <script>
+    var app = angular.module('myApp', []);
+    function BosKontrol(Tut){
+        if (Tut==null) {
+          alert("Doldur");
+        }
+    }
+    function sayiKontrol(event)
+    {
+      if(event.keyCode != 8 && event.keyCode != 0 && (event.keyCode < 48 || event.keyCode > 57))
+          return false;
+
+    }
+
+    (function() {
+
+      app.directive('onlyLettersInput', onlyLettersInput);
+
+      function onlyLettersInput() {
+        return {
+          require: 'ngModel',
+          link: function(scope, element, attr, ngModelCtrl) {
+            function fromUser(text) {
+              var transformedInput = text.replace(/[^a-zA-Z]/g, '');
+              //console.log(transformedInput);
+              if (transformedInput !== text) {
+                ngModelCtrl.$setViewValue(transformedInput);
+                ngModelCtrl.$render();
+              }
+              return transformedInput;
+            }
+            ngModelCtrl.$parsers.push(fromUser);
+          }
+        };
+      };
+
+    })();
+
+    </script>
+    <style>
+    input{
+      border-color: yellow;
+    }
+    body{
+      text-align:center;
+    }
+    div{
+      background-color: rgba(55,25,48,.6);
+      padding:0.5rem;
+    }
+
+      button{
+        cursor: pointer;
+        background: cornflowerblue;
+        color: white;
+        height: 30px;
+        width: 80px;
+        border: none;
+        outline: none;
+      }
+      button:disabled{
+        cursor: not-allowed;
+        background-color: #ccc;
+      }
+      .UysmaKontrolKısmı{
+        color: red;
+         height: 20px;
+         width: 150px;
+         background: pink;
+      }
+      .BtnGönder{
+        color: rgb(93, 21, 116);
+        height: 40px;
+        width: 80px;
+        background: rgb(208, 255, 0);
+
+
+      }
+      .Hata.ng-invalid{
+        border-style: solid;
+        border-color: red;
+        border-width: 3px;
+      }
+      .error {
+      color: #CCBD14;
+      }
+  </style>
+  </head>
+
+  <body>
+    <div ng-app="myApp" class="cointainer-fulid">
+      <form name="personForm" ng-submit="sendForm()" action="/Kayit" method="POST">
+      <span class="rounded-circle">
+              <h1><i><font color=#36ff46><var>Kaydol</var></h1></font></i>
+              <table align="center" class="rounded"   width="350" bgcolor=#995C5C height="350">
+                <tr>
+                  <th><i class="fa fa-user"></i> Ad</th>
+                  <th>
+                    <input name="name" class="rounded " type="text" ng-model="person.name" only-letters-input type="text"
+                    required />
+                  </th>
+                  <th><span class="error && tspan " ng-show="personForm.name.$error.required"> Ad Alanını Doldurunuz! </span></th>
+                </tr>
+                <tr>
+                  <th><br></th>
+                   <th></th>
+                   <th ></th>
+                </tr>
+                
+                  <tr>
+
+                  <th><i class="fa fa-user"></i> Soyad</th>
+                  <th><input name="Surname" type="text" class="rounded"  ng-model="person.Surname" only-letters-input type="text"
+                  required /></th>
+                  <th><span class="error && tspan" ng-show="personForm.Surname.$error.required"> Soyad Alanını Doldurunuz! </span></th>
+                </tr></tr>
+                <tr><th><br></th></tr>
+                <tr>
+                
+                <tr>
+                  <th><i class="fa fa-phone"></i>Tel</th>
+                  <th>
+                    <input name="Tel" type="text" class="rounded"  ng-model="person.Tel"  onkeypress="return sayiKontrol(event)"
+                    required />
+                  </th>
+                  <th>
+                    <span class="error && tspan" class="rounded"  ng-show="personForm.Tel.$error.required"> Telefon Alanını Doldurunuz! </span>
+                  </th>
+                </tr>
+              </tr>
+              <tr><th><br></th></tr>
+              <tr>
+
+
+
+                <tr>
+                  <th><i class="fa fa-envelope"></i>E-mail</th>
+                  <th>  <input name="email" class="rounded"  type="email" ng-model="person.email" required /></th>
+                  <th>
+                  <span class="error" ng-show="personForm.email.$error.required">Bu alan Zorunludur</span>
+                  <span class="error" ng-show="personForm.email.$error.email">Geçerli bir aders giriniz</span></th>
+                </tr></tr>
+                <tr><th><br></th></tr>
+                <tr>
+
+                
+                <tr>
+                  <th><i class="fa fa-asterisk"></i>Şifre</th>
+                  <th><input name="Sifre" class="rounded"  type="text" ng-model="person.Sifre" required /></th>
+                  <th><span class="error" ng-show="personForm.Sifre.$error.required"> Bu alan zorunludur </span></th>
+                </tr>
+              </tr>
+              <tr><th><br></th></tr>
+              <tr>
+                <tr>
+                  <th><i class="fa fa-asterisk"></i>Şifre Kontrol</th>
+                  <th><input name="Sifre2" class="rounded"  type="text" ng-model="person.Sifre2" required /></th>
+                  <th><span class="error" ng-show="person.Sifre!=person.Sifre2 || !person.Sifre || !person.Sifre2">Şifreler Aynı değil</span></th>
+                </tr></tr>
+                <tr><th><br></th></tr>
+                <tr>
+
+                <tr>
+                  <th></th>
+                    <th><button name="BtnKayıt" class="BtnGönder rounded"  ng-disabled = "!person.name || !person.Surname || !person.Tel || !person.email
+                      || !person.Sifre2 || !person.Sifre || person.Sifre != person.Sifre2" ><strong>Kaydol</strong></button></th>
+
+                </tr>
+
+                <table>  <th><span class="error" > Web sitemize hoşgeldiniz</span></th>
+
+                </table>
+              </table>
+
+
+
+          </form>
+        </span>
+        <br><br><br><br><br><br><br><br><br><br><br>
+  </body>
+</html>

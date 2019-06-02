@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script>
+        function sayiKontrol(event)
+        {
+          if(event.keyCode != 8 && event.keyCode != 0 && (event.keyCode < 48 || event.keyCode > 57))
+              return false;
+    
+        }
+    
+          var BenimApp=angular.module("MyApp",[]);
+          BenimApp.controller("MyControl",function($scope){
+    
+    
+    
+         });
+    </script>
+    <style>
+        body{
+          text-align:center;
+        }
+        div{
+          background-color: rgba(55,25,48,.6);
+          padding:0.5rem;
+        }
+        span{
+          height: 150px;
+          width: 450px;
+          background-color:whitesmoke;
+          display: inline-block;
+        }
+        .BtnGönder{
+          height: 30px;
+          width:90px;
+            cursor: pointer;
+            background: cornflowerblue;
+            color: white;
+            border: none;
+            outline: none;
+        }
+        .Gir{
+          height: 40px;
+          width: 80px;
+          color: rgb(93, 21, 116);
+           background: rgb(208, 255, 0);
+        }
+        .Hsg{
+           color: #CCBD14;
+
+        }
+      </style>
+  </head> 
+
+  <body ng-app="MyApp" ng-controller="MyControl" >
+   <div class="container-fulid">
+        
+      <form action="/WebGiris" method="POST">     
+        <span class="rounded"><br>
+          <h3><i class="fa fa-phone"></i>Tel no: <input type="text" name="GirisTel" ng-model="TelNo" onkeypress="return sayiKontrol(event)" placeholder="user name"></h3>
+          <h3><i class="fa fa-asterisk"></i>Şifre: <input type="text" name="GirisSifre" ng-model="Sifre"  placeholder="password"></h3>
+          <label ng-show="TelNo!=null && Sifre!=null">Robot olmadığı kanıtla<input type="checkbox" ng-model="Robot"></input></label>
+        </span>
+          
+         <br><br>
+        <button  ng-disabled="!Sifre || !Robot || !TelNo" class="Gir rounded"><strong>Giriş</strong></button>
+
+        <p class="Hsg text-left"><strong>Web sitemize hoşgeldiniz</strong></p>
+       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+      </form>   
+  
+  
+
+
+    </div>
+  </body>
+
+
+
+
+
+</html>
